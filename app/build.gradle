@@ -4,23 +4,56 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
     defaultConfig {
         applicationId "sumsar.com.walsmart"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            debuggable true
+            resValue "string", "API_KEY", WAlSMART_API_KEY
+            resValue "bool", "LOG_ENABLED", "true"
+            resValue "string", "BASE_URL", "https://walmartlabs-test.appspot.com/_ah/api/walmart/v1"
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        release {
+            resValue "string", "API_KEY", WAlSMART_API_KEY
+            resValue "bool", "LOG_ENABLED", "false"
+            resValue "string", "BASE_URL", "https://walmartlabs-test.appspot.com/_ah/api/walmart/v1"
+
+            minifyEnabled true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':model')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
+
 }
+
+
