@@ -15,20 +15,18 @@ import sumsar.com.walsmart.R;
 public class ProductListActivity extends AppCompatActivity {
 
 
-//    private ViewGroup container;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        container = (ViewGroup) findViewById(R.id.container);
         initFragments();
     }
 
     private void initFragments() {
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (getSupportFragmentManager().findFragmentByTag(ProductListFragment.TAG) == null) {
-            fragmentTransaction.replace(R.id.container, ProductListFragment.getInstance());
+            fragmentTransaction.replace(R.id.container, ProductListFragment.getInstance()).commit();
+            getSupportFragmentManager().executePendingTransactions();
         }
     }
 

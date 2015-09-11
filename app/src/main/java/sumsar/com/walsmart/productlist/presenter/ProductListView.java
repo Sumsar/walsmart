@@ -1,6 +1,6 @@
 package sumsar.com.walsmart.productlist.presenter;
 
-import com.sumsar.ProductList;
+import sumsar.com.walsmart.model.ProductList;
 
 import sumsar.com.walsmart.presenter.BaseView;
 

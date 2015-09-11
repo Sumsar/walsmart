@@ -1,6 +1,6 @@
 package sumsar.com.walsmart.productlist.presenter;
 
-import com.sumsar.Product;
+import sumsar.com.walsmart.model.Product;
 
 import sumsar.com.walsmart.presenter.Presenter;
 
@@ -12,5 +12,7 @@ public interface ProductListPresenter extends Presenter {
     void requestProductList();
 
     void selectProduct(Product product);
+
+    void onDestroy();
 
 }

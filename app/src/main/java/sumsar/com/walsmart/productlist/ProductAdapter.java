@@ -1,12 +1,15 @@
 package sumsar.com.walsmart.productlist;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-
-import com.sumsar.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import sumsar.com.walsmart.R;
+import sumsar.com.walsmart.model.Product;
 
 /**
  * Created by rasmusgohs on 09/09/15.
@@ -17,7 +20,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new ProductViewHolder(viewGroup);
+        final View item = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product_list_item, viewGroup, false);
+        return new ProductViewHolder(item);
     }
 
     @Override

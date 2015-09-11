@@ -1,4 +1,4 @@
-package com.sumsar;
+package sumsar.com.walsmart.model;
 
 public class Product {
 

@@ -1,4 +1,4 @@
-package com.sumsar;
+package sumsar.com.walsmart.model;
 
 import java.util.ArrayList;
 import java.util.List;

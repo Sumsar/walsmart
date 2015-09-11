@@ -23,7 +23,7 @@ public class MyLog {
         }
     }
 
-    public static void d(String tag, String message, Throwable t) {
+    public static void e(String tag, String message, Throwable t) {
         if (shouldLog) {
             Log.e(tag, message, t);
         }

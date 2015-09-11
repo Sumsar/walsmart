@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.sumsar.Product;
+import sumsar.com.walsmart.model.Product;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
