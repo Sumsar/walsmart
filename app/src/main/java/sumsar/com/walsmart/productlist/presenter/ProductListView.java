@@ -1,5 +1,8 @@
 package sumsar.com.walsmart.productlist.presenter;
 
+import java.util.List;
+
+import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.model.ProductList;
 
 import sumsar.com.walsmart.presenter.BaseView;
@@ -9,7 +12,7 @@ import sumsar.com.walsmart.presenter.BaseView;
  */
 public interface ProductListView extends BaseView {
 
-    void setProductList(ProductList productList);
+    void setProducts(List<Product> products);
 
 
 }

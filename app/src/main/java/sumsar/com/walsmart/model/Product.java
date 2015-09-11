@@ -4,6 +4,7 @@ public class Product {
 
     private String  productId;
     private String  productName;
+    private String  productImage;
     private String  shortDescription;
     private String  longDescription;
     private String  price;
@@ -41,5 +42,9 @@ public class Product {
 
     public boolean isInStock() {
         return inStock;
+    }
+
+    public String getProductImage() {
+        return productImage;
     }
 }

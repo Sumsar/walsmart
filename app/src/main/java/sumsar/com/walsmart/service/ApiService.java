@@ -37,6 +37,8 @@ public class ApiService {
 
                 @Override
                 public void onFailure(Throwable t) {
+                    MyLog.e(ApiService.class.getSimpleName(), "Request failed", t);
+
                     onFailed(t);
                 }
             });

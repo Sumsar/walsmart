@@ -1,15 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/list_item_height_two_lines"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+
+    <ImageView
+        android:id="@+id/product_list_item_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:src="@null"/>
 
     <TextView
         android:id="@+id/product_list_item_title"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/product_list_item_image"
+        android:layout_toRightOf="@id/product_list_item_image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="hello"
         tools:text="hello"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/product_list_item_sub_title"
+        style="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/product_list_item_image"
+        android:layout_alignLeft="@id/product_list_item_title"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="subtitle"
+        tools:text="hello"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divider"></View>
+
+</RelativeLayout>

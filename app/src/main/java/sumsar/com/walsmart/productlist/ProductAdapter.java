@@ -1,5 +1,6 @@
 package sumsar.com.walsmart.productlist;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,18 @@ import sumsar.com.walsmart.model.Product;
  */
 public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
+    public interface OnProductClickListener {
+        void onClick(Product product);
+    }
+
+
+    private OnProductClickListener mOnProductClickListener;
     private List<Product> mProducts = new ArrayList<>();
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final View item = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product_list_item, viewGroup, false);
-        return new ProductViewHolder(item);
+        return new ProductViewHolder(item, mOnProductClickListener);
     }
 
     @Override
@@ -37,5 +44,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
     public void setProducts(List<Product> products) {
         mProducts.clear();
         mProducts.addAll(products);
+    }
+
+    public void setOnProductClickListener(OnProductClickListener onProductClickListener) {
+        mOnProductClickListener = onProductClickListener;
     }
 }

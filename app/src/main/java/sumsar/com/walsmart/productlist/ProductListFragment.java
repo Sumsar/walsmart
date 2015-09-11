@@ -10,18 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import sumsar.com.walsmart.R;
-import sumsar.com.walsmart.model.ProductList;
+import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenter;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenterImpl;
 import sumsar.com.walsmart.productlist.presenter.ProductListView;
+import sumsar.com.walsmart.util.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.
  */
-public class ProductListFragment extends Fragment implements ProductListView {
+public class ProductListFragment extends Fragment implements ProductListView, ProductAdapter.OnProductClickListener {
 
 
     public static final String TAG = ProductListFragment.class.getSimpleName();
@@ -37,6 +40,10 @@ public class ProductListFragment extends Fragment implements ProductListView {
     private ProductListPresenter mPresenter = new ProductListPresenterImpl(this);
 
 
+    public ProductListFragment() {
+        mProductAdapter.setOnProductClickListener(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,15 +55,20 @@ public class ProductListFragment extends Fragment implements ProductListView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mProductAdapter);
+        setScrollListener(mRecyclerView, layoutManager);
         mPresenter.requestProductList();
     }
 
     @Override
-    public void setProductList(ProductList productList) {
-        mProductAdapter.setProducts(productList.getProducts());
-        mProductAdapter.notifyDataSetChanged();
+    public void setProducts(List<Product> products) {
+        mProductAdapter.setProducts(products);
+
+        int currentNoOfItems = mProductAdapter.getItemCount();
+        mProductAdapter.notifyItemRangeInserted(currentNoOfItems, products.size() - currentNoOfItems);
     }
 
     @Override
@@ -76,5 +88,33 @@ public class ProductListFragment extends Fragment implements ProductListView {
 
     public static ProductListFragment getInstance() {
         return new ProductListFragment();
+    }
+
+    @Override
+    public void onClick(Product product) {
+        mPresenter.selectProduct(product);
+    }
+
+    private void setScrollListener(final RecyclerView recyclerView, final LinearLayoutManager layoutManager) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int visibleItemCount, totalItemCount, pastVisibleItems;
+            boolean hitEnd;
+            boolean loading;
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                visibleItemCount = layoutManager.getChildCount();
+                totalItemCount = layoutManager.getItemCount();
+                pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+                hitEnd = visibleItemCount + pastVisibleItems >= totalItemCount;
+                if (hitEnd && !mSwipeRefreshLayout.isRefreshing()) {
+                    MyLog.d(ProductListFragment.TAG, "Hit end");
+                    mPresenter.requestProductList();
+                }
+
+            }
+        });
     }
 }
