@@ -1,4 +1,4 @@
-package sumsar.com.walsmart.productlist;
+package sumsar.com.walsmart.productlist.widget;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,7 +17,7 @@ import sumsar.com.walsmart.model.Product;
  */
 public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private final ProductAdapter.OnProductClickListener mOnProductClickListener;
+    private final OnProductSelectedListener mOnProductSelectedListener;
     @Bind(R.id.product_list_item_title)
     TextView mTitleTextView;
 
@@ -27,17 +27,19 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
     @Bind(R.id.product_list_item_image)
     ImageView mImageView;
     private Product mProduct;
+    private int     mIndex;
 
 
-    public ProductViewHolder(View itemView, ProductAdapter.OnProductClickListener onProductClickListener) {
+    public ProductViewHolder(View itemView, OnProductSelectedListener onProductSelectedListener) {
         super(itemView);
-        mOnProductClickListener = onProductClickListener;
+        mOnProductSelectedListener = onProductSelectedListener;
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
     }
 
-    public void bind(final Product product) {
+    public void bind(final Product product, final int index) {
         mProduct = product;
+        mIndex = index;
         mTitleTextView.setText(product.getProductName());
         mSubtitleTextView.setText(product.getPrice());
         Glide.with(itemView.getContext()).load(product.getProductImage()).crossFade().placeholder(R.drawable.walmart).into(mImageView);
@@ -45,8 +47,8 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onClick(View v) {
-        if (mOnProductClickListener != null) {
-            mOnProductClickListener.onClick(mProduct);
+        if (mOnProductSelectedListener != null) {
+            mOnProductSelectedListener.onProductSelected(mProduct, mIndex, mImageView);
         }
     }
 }

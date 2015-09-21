@@ -1,7 +1,6 @@
 package sumsar.com.walsmart.util;
 
 import android.content.Context;
-import android.util.Log;
 
 import sumsar.com.walsmart.R;
 
@@ -10,23 +9,37 @@ import sumsar.com.walsmart.R;
  */
 public class MyLog {
 
-    private static boolean shouldLog;
-
+    private static Logger mLogger = new EmptyLogger(); // Default
 
     public static void init(Context context) {
-        shouldLog = context.getResources().getBoolean(R.bool.LOG_ENABLED);
+        final boolean shouldLog = context.getResources().getBoolean(R.bool.LOG_ENABLED);
+        mLogger = shouldLog ? new DebugLogger() : new EmptyLogger();
+
     }
 
     public static void d(String tag, String message) {
-        if (shouldLog) {
-            Log.d(tag, message);
+        if (mLogger == null) {
+            throw new IllegalStateException("Please call init");
         }
+
+        mLogger.d(tag, message);
     }
 
     public static void e(String tag, String message, Throwable t) {
-        if (shouldLog) {
-            Log.e(tag, message, t);
+        if (mLogger == null) {
+            throw new IllegalStateException("Please call init");
         }
+
+        mLogger.e(tag, message, t);
+
+    }
+
+    public static void e(String tag, String message) {
+        if (mLogger == null) {
+            throw new IllegalStateException("Please call init");
+        }
+
+        mLogger.e(tag, message);
     }
 
 

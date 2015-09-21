@@ -1,5 +1,6 @@
-package sumsar.com.walsmart.productlist;
+package sumsar.com.walsmart.productlist.widget;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.List;
 
@@ -19,12 +21,13 @@ import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenter;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenterImpl;
 import sumsar.com.walsmart.productlist.presenter.ProductListView;
+import sumsar.com.walsmart.service.ApiService;
 import sumsar.com.walsmart.util.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.
  */
-public class ProductListFragment extends Fragment implements ProductListView, ProductAdapter.OnProductClickListener {
+public class ProductListFragment extends Fragment implements ProductListView, OnProductSelectedListener{
 
 
     public static final String TAG = ProductListFragment.class.getSimpleName();
@@ -35,14 +38,19 @@ public class ProductListFragment extends Fragment implements ProductListView, Pr
     @Bind(R.id.product_list_swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+
     private final ProductAdapter mProductAdapter = new ProductAdapter();
 
-    private ProductListPresenter mPresenter = new ProductListPresenterImpl(this);
+    private ProductListPresenter mPresenter = new ProductListPresenterImpl(this, ApiService.getInstance());
+    private OnProductSelectedListener mOnProductClickListener;
 
 
     public ProductListFragment() {
         mProductAdapter.setOnProductClickListener(this);
     }
+
+    private static final String CURRENT_SELECTED_INDEX_KEY = "CURRENT_SELECTED_INDEX_KEY";
+    private              long   currentSelectedIndex       = 0;
 
     @Nullable
     @Override
@@ -50,6 +58,19 @@ public class ProductListFragment extends Fragment implements ProductListView, Pr
         final View view = inflater.inflate(R.layout.product_list_fragment, container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putLong(CURRENT_SELECTED_INDEX_KEY, currentSelectedIndex);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mOnProductClickListener = (OnProductSelectedListener) getActivity();
     }
 
     @Override
@@ -90,16 +111,10 @@ public class ProductListFragment extends Fragment implements ProductListView, Pr
         return new ProductListFragment();
     }
 
-    @Override
-    public void onClick(Product product) {
-        mPresenter.selectProduct(product);
-    }
-
     private void setScrollListener(final RecyclerView recyclerView, final LinearLayoutManager layoutManager) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int visibleItemCount, totalItemCount, pastVisibleItems;
             boolean hitEnd;
-            boolean loading;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -116,5 +131,17 @@ public class ProductListFragment extends Fragment implements ProductListView, Pr
 
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
+    }
+
+    @Override
+    public void onProductSelected(Product product, int index, ImageView productImageView) {
+        mOnProductClickListener.onProductSelected(product, index, productImageView);
+        currentSelectedIndex = index;
     }
 }
