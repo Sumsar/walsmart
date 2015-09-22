@@ -9,6 +9,10 @@ import sumsar.com.walsmart.model.Product;
 /**
  * Created by rasmusgohs on 22/09/15.
  */
+
+/**
+ * Helper for type safety
+ */
 public class ExtraHelper {
 
     private static final String PRODUCT = "PRODUCT";

@@ -14,13 +14,12 @@ import android.view.ViewGroup;
 import sumsar.com.walsmart.BR;
 import sumsar.com.walsmart.R;
 import sumsar.com.walsmart.model.Product;
-import sumsar.com.walsmart.productdetail.presenter.ProductDetailView;
 import sumsar.com.walsmart.util.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.
  */
-public class ProductDetailFragment extends Fragment implements ProductDetailView {
+public class ProductDetailFragment extends Fragment{
 
 
     private ViewDataBinding mDataBinding;
@@ -33,12 +32,10 @@ public class ProductDetailFragment extends Fragment implements ProductDetailView
     }
 
     @LayoutRes
-    private int getLayout(Context context) {
-        final boolean dualPanel = context.getResources().getBoolean(R.bool.dual_panel);
-        return dualPanel ? R.layout.product_detail_fragment : R.layout.product_detail_fragment_parallax;
+    protected int getLayout(Context context) {
+        return R.layout.product_detail_fragment;
     }
 
-    @Override
     public void setProduct(Product product) {
 
         if (product == null) {

@@ -31,9 +31,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             finish();
         }
 
-
         setContentView(R.layout.details_activity);
-
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,10 +40,10 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
 
+
     private void recoverState(Bundle savedInstanceState) {
         Product product = ExtraHelper.getProduct(savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
         setProduct(product);
-
     }
 
     @Override
