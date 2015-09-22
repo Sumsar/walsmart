@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">WalSmart</string>
     <string name="rating">Rating</string>
+    <string name="in_stock">In stock</string>
+    <string name="not_in_stock">Not in stock</string>
 
 </resources>

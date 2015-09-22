@@ -6,5 +6,7 @@
     <color name="accent">#FDB010</color>
     <color name="divider">#e2dfda</color>
     <color name="transparent">#00ffffff</color>
+    <color name="in_stock">#a4dea0</color>
+    <color name="not_in_stock">#dea0a0</color>
 
 </resources>

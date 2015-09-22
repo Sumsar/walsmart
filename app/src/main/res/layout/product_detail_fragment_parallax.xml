@@ -69,7 +69,7 @@
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <RelativeLayout
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -87,36 +87,69 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:gravity="center"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:text="@{product.productName}"
                     tools:text="cheese"/>
 
                 <TextView
-                    android:id="@+id/product_detail_rating_title"
+                    android:id="@+id/product_detail_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/product_detail_image"
-                    android:gravity="bottom"
-                    android:text="@string/rating"/>
-
-                <RatingBar
-                    android:id="@+id/product_detail_rating_bar"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/product_detail_rating_title"
+                    android:layout_below="@id/product_detail_name"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_toRightOf="@id/product_detail_rating_title"
-                    android:max="5"/>
+                    android:drawableLeft="@android:drawable/btn_star"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(product.reviewRating)}"
+                    tools:text="4.0"/>
+
+
+                <TextView
+                    android:id="@+id/product_detail_review_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/product_detail_rating"
+                    android:layout_alignBottom="@id/product_detail_rating"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:drawableLeft="@android:drawable/ic_menu_view"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(product.reviewCount)}"
+                    tools:text="2.0"/>
+
+                <TextView
+                    android:id="@+id/product_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/product_detail_review_count"
+                    android:layout_alignBottom="@id/product_detail_review_count"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:text="@{product.price}"
+                    tools:text="$100"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/product_detail_price"
+                    android:layout_alignBottom="@id/product_detail_review_count"
+                    android:gravity="center"
+                    android:drawableLeft="@android:drawable/ic_menu_send"
+                    android:text="@{product.inStock ? @string/in_stock: @string/not_in_stock}"
+                    android:textColor="@{product.inStock ? @color/in_stock: @color/not_in_stock}"
+                    tools:text="yes"/>
+                <!--android:drawableLeft="@{product.inStock ? @android:drawable/ic_menu_send : @android:drawable/ic_dialog_alert"-->
+
+
 
                 <TextView
                     android:id="@+id/product_detail_long_description"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/product_detail_rating_bar"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/product_detail_rating"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:text="@{Html.fromHtml(product.longDescription)}"/>
 
-            </LinearLayout>
-
+            </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>

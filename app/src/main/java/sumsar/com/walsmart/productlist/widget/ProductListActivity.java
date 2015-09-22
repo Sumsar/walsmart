@@ -59,7 +59,13 @@ public class ProductListActivity extends AppCompatActivity implements OnProductS
 
     @Override
     public void onProductSelected(Product product, int index, ImageView productImageView) {
+
+        if (mProduct != null) {
+            mProduct.setSelected(false);
+        }
+
         mProduct = product;
+        mProduct.setSelected(true);
         showProductDetails(product, index, productImageView);
 
     }

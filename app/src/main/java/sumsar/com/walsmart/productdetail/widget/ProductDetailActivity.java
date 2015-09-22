@@ -40,7 +40,6 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
 
-
     private void recoverState(Bundle savedInstanceState) {
         Product product = ExtraHelper.getProduct(savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
         setProduct(product);
@@ -63,14 +62,19 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
     public static void startActivity(Activity activity, final Product product, final int index, @Nullable final ImageView productImageView) {
-        final Intent intent = getIntent(activity, product);
         if (productImageView == null) {
-            activity.startActivity(intent);
+            startActivity(activity, product);
         } else {
+            final Intent intent = getIntent(activity, product);
             final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     activity, productImageView, product.getProductImage());
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
+    }
+
+    public static void startActivity(Activity activity, final Product product) {
+        final Intent intent = getIntent(activity, product);
+        activity.startActivity(intent);
     }
 
     private static Intent getIntent(final Activity activity, final Product product) {
