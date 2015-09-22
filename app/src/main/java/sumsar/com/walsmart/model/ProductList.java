@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ProductList {
 
-    private List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     private double totalProducts;
     private double pageNumber;

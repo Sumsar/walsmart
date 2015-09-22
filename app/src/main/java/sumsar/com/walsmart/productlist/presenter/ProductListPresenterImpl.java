@@ -1,14 +1,12 @@
 package sumsar.com.walsmart.productlist.presenter;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import sumsar.com.walsmart.mock.MockResponse;
 import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.model.ProductList;
-import sumsar.com.walsmart.service.ApiService;
+import sumsar.com.walsmart.service.API;
+import sumsar.com.walsmart.service.ApiCallback;
 
 /**
  * Created by rasmusgohs on 09/09/15.
@@ -16,12 +14,12 @@ import sumsar.com.walsmart.service.ApiService;
 public class ProductListPresenterImpl implements ProductListPresenter {
 
 
-    private final ProductListView                     mProductListView;
-    private final ApiService                          mApiService;
-    private       ApiService.ApiCallback<ProductList> mApiCallback;
-    private List<Product> mProducts = new ArrayList<>();
+    private final ProductListView          mProductListView;
+    private final API                      mApiService;
+    private       ApiCallback<ProductList> mApiCallback;
+    private final List<Product> mProducts = new ArrayList<>();
 
-    public ProductListPresenterImpl(ProductListView productListView, ApiService apiService) {
+    public ProductListPresenterImpl(ProductListView productListView, API apiService) {
         mProductListView = productListView;
         mApiService = apiService;
     }
@@ -29,7 +27,7 @@ public class ProductListPresenterImpl implements ProductListPresenter {
     @Override
     public void requestProductList() {
         mProductListView.showLoading();
-        mApiCallback = new ApiService.ApiCallback<ProductList>() {
+        mApiCallback = new ApiCallback<ProductList>() {
             @Override
             public void onSuccess(ProductList data) {
                 mProducts.addAll(data.getProducts());

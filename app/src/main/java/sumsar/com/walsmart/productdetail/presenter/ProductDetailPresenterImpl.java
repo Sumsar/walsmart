@@ -8,7 +8,7 @@ import sumsar.com.walsmart.model.Product;
 public class ProductDetailPresenterImpl implements ProductDetailPresenter {
 
 
-    private ProductDetailView mProductDetailView;
+    private final ProductDetailView mProductDetailView;
 
     public ProductDetailPresenterImpl(ProductDetailView productDetailView) {
         mProductDetailView = productDetailView;

@@ -18,7 +18,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
 
     private OnProductSelectedListener mOnProductSelectedListener;
-    private List<Product> mProducts = new ArrayList<>();
+    private final List<Product> mProducts = new ArrayList<>();
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {

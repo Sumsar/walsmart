@@ -3,14 +3,16 @@ package sumsar.com.walsmart.productdetail.widget;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import sumsar.com.walsmart.R;
 import sumsar.com.walsmart.model.Product;
+import sumsar.com.walsmart.util.ExtraHelper;
 
 /**
  * Created by rasmusgohs on 11/09/15.
@@ -18,33 +20,64 @@ import sumsar.com.walsmart.model.Product;
 public class ProductDetailActivity extends AppCompatActivity {
 
 
+    private Product mProduct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        getIntent().getExtras();
 
-        final Bundle bundle = savedInstanceState != null ? savedInstanceState : getIntent().getExtras();
-        initFragments(bundle);
+        //Check if we are supposed to be in dual pane mode
+        if (getResources().getBoolean(R.bool.dual_panel)) {
+            finish();
+        }
+
+
+        setContentView(R.layout.details_activity);
+
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        recoverState(savedInstanceState);
     }
 
 
-    private void initFragments(final Bundle bundle) {
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (getSupportFragmentManager().findFragmentByTag(ProductDetailPagerFragment.TAG) == null) {
-            fragmentTransaction.replace(R.id.container, ProductDetailPagerFragment.getInstance(bundle)).commit();
-            getSupportFragmentManager().executePendingTransactions();
+    private void recoverState(Bundle savedInstanceState) {
+        Product product = ExtraHelper.getProduct(savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
+        setProduct(product);
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        if (mProduct != null) {
+            ExtraHelper.setProduct(outState, mProduct);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    private void setProduct(Product product) {
+        mProduct = product;
+        ProductDetailFragment productDetailFragment = (ProductDetailFragment) getSupportFragmentManager().findFragmentById(R.id.product_details_fragment);
+        productDetailFragment.setProduct(product);
+    }
+
+
+    public static void startActivity(Activity activity, final Product product, final int index, @Nullable final ImageView productImageView) {
+        final Intent intent = getIntent(activity, product);
+        if (productImageView == null) {
+            activity.startActivity(intent);
+        } else {
+            final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity, productImageView, product.getProductImage());
+            ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
     }
 
-
-    public static void startActivity(Activity activity, final Product product, final int index, final ImageView productImageView) {
+    private static Intent getIntent(final Activity activity, final Product product) {
         final Intent intent = new Intent(activity, ProductDetailActivity.class);
-//        intent.putExtra(ProductDetailPagerFragment.SELECTED_PRODUCT_KEY, product);
-        intent.putExtra(ProductDetailPagerFragment.SELECTED_PRODUCT_INDEX_KEY, index);
-        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity, productImageView, activity.getString(R.string.product_image_view));
-        ActivityCompat.startActivity(activity, intent, options.toBundle());
-
+        ExtraHelper.setProduct(intent, product);
+        return intent;
     }
 }

@@ -20,7 +20,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".productdetail.widget.ProductDetailActivity"></activity>
+        <activity
+            android:name=".productdetail.widget.ProductDetailActivity"
+            android:parentActivityName=".productlist.widget.ProductListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".productlist.widget.ProductListActivity"/>
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

@@ -3,8 +3,6 @@ package sumsar.com.walsmart.productlist.presenter;
 import java.util.List;
 
 import sumsar.com.walsmart.model.Product;
-import sumsar.com.walsmart.model.ProductList;
-
 import sumsar.com.walsmart.presenter.BaseView;
 
 /**

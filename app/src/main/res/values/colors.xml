@@ -5,5 +5,6 @@
     <color name="dark">#00153E</color>
     <color name="accent">#FDB010</color>
     <color name="divider">#e2dfda</color>
+    <color name="transparent">#00ffffff</color>
 
 </resources>

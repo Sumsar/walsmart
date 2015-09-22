@@ -2,6 +2,7 @@ package sumsar.com.walsmart.productlist.widget;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,34 +15,32 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import sumsar.com.walsmart.R;
+import sumsar.com.walsmart.mock.MockAPI;
 import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenter;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenterImpl;
 import sumsar.com.walsmart.productlist.presenter.ProductListView;
-import sumsar.com.walsmart.service.ApiService;
 import sumsar.com.walsmart.util.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.
  */
-public class ProductListFragment extends Fragment implements ProductListView, OnProductSelectedListener{
+public class ProductListFragment extends Fragment implements ProductListView, OnProductSelectedListener {
 
 
     public static final String TAG = ProductListFragment.class.getSimpleName();
 
-    @Bind(R.id.product_list_recyclerView)
-    RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
 
-    @Bind(R.id.product_list_swipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private static final String RECYCLER_POSITION = "RECYCLER_POSITION";
 
 
     private final ProductAdapter mProductAdapter = new ProductAdapter();
 
-    private ProductListPresenter mPresenter = new ProductListPresenterImpl(this, ApiService.getInstance());
+    private final ProductListPresenter mPresenter = new ProductListPresenterImpl(this, MockAPI.getInstance());
     private OnProductSelectedListener mOnProductClickListener;
 
 
@@ -49,22 +48,28 @@ public class ProductListFragment extends Fragment implements ProductListView, On
         mProductAdapter.setOnProductClickListener(this);
     }
 
-    private static final String CURRENT_SELECTED_INDEX_KEY = "CURRENT_SELECTED_INDEX_KEY";
-    private              long   currentSelectedIndex       = 0;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.product_list_fragment, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return inflater.inflate(R.layout.product_list_fragment, container, false);
     }
 
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putLong(CURRENT_SELECTED_INDEX_KEY, currentSelectedIndex);
+        outState.putParcelable(RECYCLER_POSITION, mRecyclerView.getLayoutManager().onSaveInstanceState());
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_POSITION);
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+        }
     }
 
     @Override
@@ -77,6 +82,8 @@ public class ProductListFragment extends Fragment implements ProductListView, On
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.product_list_recyclerView);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.product_list_swipeRefreshLayout);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mProductAdapter);
@@ -92,6 +99,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
         mProductAdapter.notifyItemRangeInserted(currentNoOfItems, products.size() - currentNoOfItems);
     }
 
+
     @Override
     public void showError(String message) {
     }
@@ -106,10 +114,6 @@ public class ProductListFragment extends Fragment implements ProductListView, On
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-
-    public static ProductListFragment getInstance() {
-        return new ProductListFragment();
-    }
 
     private void setScrollListener(final RecyclerView recyclerView, final LinearLayoutManager layoutManager) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -135,13 +139,12 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mPresenter.onDestroy();
+        super.onDestroy();
     }
 
     @Override
     public void onProductSelected(Product product, int index, ImageView productImageView) {
         mOnProductClickListener.onProductSelected(product, index, productImageView);
-        currentSelectedIndex = index;
     }
 }

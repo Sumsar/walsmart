@@ -28,8 +28,8 @@
             android:layout_height="match_parent"/>
 
         <fragment
-            android:id="@+id/product_details_pager_fragment"
-            class="sumsar.com.walsmart.productdetail.widget.ProductDetailPagerFragment"
+            android:id="@+id/product_details_fragment"
+            class="sumsar.com.walsmart.productdetail.widget.ProductDetailFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

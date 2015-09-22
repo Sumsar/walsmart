@@ -5,15 +5,15 @@ import android.os.Parcelable;
 
 public class Product implements Parcelable {
 
-    private String  productId;
-    private String  productName;
-    private String  productImage;
-    private String  shortDescription;
-    private String  longDescription;
-    private String  price;
-    private float   reviewRating;
-    private long    reviewCount;
-    private boolean inStock;
+    private final String  productId;
+    private final String  productName;
+    private final String  productImage;
+    private final String  shortDescription;
+    private final String  longDescription;
+    private final String  price;
+    private final float   reviewRating;
+    private final long    reviewCount;
+    private final boolean inStock;
 
     protected Product(Parcel in) {
         productId = in.readString();
