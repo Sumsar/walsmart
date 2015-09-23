@@ -1,8 +1,10 @@
 package sumsar.com.walsmart.util;
 
 import android.databinding.BindingAdapter;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -21,6 +23,15 @@ public class BindingUtil {
     @BindingAdapter({"bind:selected"})
     public static void selected(View view, boolean selected) {
         view.setSelected(selected);
+    }
+
+    @BindingAdapter({"bind:fromHtml"})
+    public static void setTextfromHtml(TextView view, String text) {
+        if (text != null) {
+            view.setText(Html.fromHtml(text));
+        } else {
+            view.setText(null);
+        }
     }
 }
 

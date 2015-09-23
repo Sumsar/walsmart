@@ -1,80 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="sumsar.com.walsmart.model.Product"></import>
-        <import type="android.text.Html"/>
+
         <variable
             name="product"
             type="sumsar.com.walsmart.model.Product"></variable>
     </data>
 
-    <RelativeLayout
-
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-
-        <ImageView
-            android:id="@+id/product_detail_image"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_detail_image_height"
-            android:transitionName='@{product.productImage}'
-            app:imageUrl="@{product.productImage}"
-            tools:src="@drawable/walmart"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            />
+            <ImageView
+                android:id="@+id/product_detail_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/product_detail_image_height"
+                android:transitionName='@{product.productImage}'
+                app:imageUrl="@{product.productImage}"
+                tools:src="@drawable/walmart"/>
 
-        <TextView
-            android:id="@+id/product_detail_name"
-            style="@style/Base.TextAppearance.AppCompat.Title"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignBottom="@id/product_detail_image"
-            android:background="@drawable/product_image_gradient"
-            android:gravity="center"
-            android:text="@{product.productName}"
-            tools:text="cheese"/>
 
-        <TextView
-            android:id="@+id/product_detail_rating_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/product_detail_image"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:gravity="bottom"
-            android:text="@string/rating"/>
+            <TextView
+                android:id="@+id/product_detail_name"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{product.productName}"
+                tools:text="cheese"/>
 
-        <RatingBar
-            android:id="@+id/product_detail_rating_bar"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/product_detail_rating_title"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_toRightOf="@id/product_detail_rating_title"
-            android:max="5"/>
+            <LinearLayout
+                android:id="@+id/product_details_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/product_detail_name"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/product_detail_long_description"
-            android:scrollbars="vertical"
-            android:layout_below="@id/product_detail_rating_bar"
-            android:layout_width="match_parent"
-            android:text="@{Html.fromHtml(product.longDescription)}"
-            android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/product_detail_rating"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@android:drawable/btn_star"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(product.reviewRating)}"
+                    tools:text="4.0"/>
 
-    </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/product_detail_review_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@android:drawable/ic_menu_view"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(product.reviewCount)}"
+                    tools:text="2.0"/>
+
+                <TextView
+                    android:id="@+id/product_detail_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:gravity="center"
+                    android:text="@{product.price}"
+                    tools:text="$100"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:drawableLeft="@android:drawable/ic_menu_send"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@{product.inStock ? @string/in_stock: @string/not_in_stock}"
+                    android:textColor="@{product.inStock ? @color/in_stock: @color/not_in_stock}"
+                    tools:text="yes"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/product_detail_long_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/product_detail_rating"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                app:fromHtml="@{product.longDescription}"/>
+        </LinearLayout>
+    </ScrollView>
+
 </layout>
