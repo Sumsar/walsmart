@@ -22,7 +22,9 @@ public class BindingUtil {
 
     @BindingAdapter({"bind:selected"})
     public static void selected(View view, boolean selected) {
-        view.setSelected(selected);
+        if (view.getResources().getBoolean(R.bool.dual_panel)) {
+            view.setSelected(selected);
+        }
     }
 
     @BindingAdapter({"bind:fromHtml"})
