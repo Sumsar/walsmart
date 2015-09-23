@@ -1,5 +1,6 @@
-package sumsar.com.walsmart.productlist.widget;
+package sumsar.com.walsmart.productlist.view;
 
+import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -7,8 +8,8 @@ import android.widget.ImageView;
 
 import sumsar.com.walsmart.R;
 import sumsar.com.walsmart.model.Product;
-import sumsar.com.walsmart.productdetail.widget.ProductDetailActivity;
-import sumsar.com.walsmart.productdetail.widget.ProductDetailFragment;
+import sumsar.com.walsmart.productdetail.view.ProductDetailActivity;
+import sumsar.com.walsmart.productdetail.view.ProductDetailFragment;
 import sumsar.com.walsmart.util.ExtraHelper;
 import sumsar.com.walsmart.util.MyLog;
 
@@ -59,13 +60,7 @@ public class ProductListActivity extends AppCompatActivity implements OnProductS
 
     @Override
     public void onProductSelected(Product product, int index, ImageView productImageView) {
-
-        if (mProduct != null) {
-            mProduct.setSelected(false);
-        }
-
         mProduct = product;
-        mProduct.setSelected(true);
         showProductDetails(product, index, productImageView);
 
     }

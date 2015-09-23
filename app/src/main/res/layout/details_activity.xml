@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/product_details_fragment"
-        class="sumsar.com.walsmart.productdetail.widget.ProductDetailParallaxFragment"
+        class="sumsar.com.walsmart.productdetail.view.ProductDetailParallaxFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

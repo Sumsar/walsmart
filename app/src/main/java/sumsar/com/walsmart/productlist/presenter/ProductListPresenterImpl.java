@@ -53,14 +53,10 @@ public class ProductListPresenterImpl implements ProductListPresenter {
 
 
     @Override
-    public void selectProduct(Product product) {
-
-    }
-
-    @Override
     public void onDestroy() {
         if (mApiCallback != null) {
             mApiCallback.cancel();
         }
     }
+
 }

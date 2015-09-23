@@ -1,4 +1,4 @@
-package sumsar.com.walsmart.productlist.widget;
+package sumsar.com.walsmart.productlist.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import java.util.List;
 
 import sumsar.com.walsmart.R;
 import sumsar.com.walsmart.mock.MockAPI;
+import sumsar.com.walsmart.model.ObservableProductId;
 import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenter;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenterImpl;
@@ -28,17 +29,17 @@ import sumsar.com.walsmart.util.MyLog;
  */
 public class ProductListFragment extends Fragment implements ProductListView, OnProductSelectedListener {
 
-
-    public static final String TAG = ProductListFragment.class.getSimpleName();
+    private static final String RECYCLER_POSITION       = "RECYCLER_POSITION";
+    private static final String SELECTED_PRODUCT_ID_KEY = "SELECTED_PRODUCT_ID_KEY";
+    public static final  String TAG                     = ProductListFragment.class.getSimpleName();
 
     private RecyclerView mRecyclerView;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private static final String RECYCLER_POSITION = "RECYCLER_POSITION";
+    private final ObservableProductId selectedProductId = new ObservableProductId();
 
-
-    private final ProductAdapter mProductAdapter = new ProductAdapter();
+    private final ProductAdapter mProductAdapter = new ProductAdapter(selectedProductId);
 
     private final ProductListPresenter mPresenter = new ProductListPresenterImpl(this, MockAPI.getInstance());
     private OnProductSelectedListener mOnProductClickListener;
@@ -48,6 +49,19 @@ public class ProductListFragment extends Fragment implements ProductListView, On
         mProductAdapter.setOnProductClickListener(this);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        if (savedInstanceState != null) {
+            restoreSelectedProduct(savedInstanceState);
+        }
+    }
+
+    private void restoreSelectedProduct(Bundle savedInstanceState) {
+        selectedProductId.setProductId(savedInstanceState.getString(SELECTED_PRODUCT_ID_KEY));
+    }
 
     @Nullable
     @Override
@@ -59,6 +73,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(RECYCLER_POSITION, mRecyclerView.getLayoutManager().onSaveInstanceState());
+        outState.putString(SELECTED_PRODUCT_ID_KEY, selectedProductId.getProductId());
         super.onSaveInstanceState(outState);
     }
 
@@ -97,6 +112,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
         int currentNoOfItems = mProductAdapter.getItemCount();
         mProductAdapter.notifyItemRangeInserted(currentNoOfItems, products.size() - currentNoOfItems);
+        selectedProductId.notifyChange();
     }
 
 
@@ -145,6 +161,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
     @Override
     public void onProductSelected(Product product, int index, ImageView productImageView) {
+        selectedProductId.setProductId(product.getProductId());
         mOnProductClickListener.onProductSelected(product, index, productImageView);
     }
 }

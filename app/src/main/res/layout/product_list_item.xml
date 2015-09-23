@@ -7,17 +7,24 @@
     <data>
 
         <variable
+            name="selectedProductId"
+            type="sumsar.com.walsmart.model.ObservableProductId"></variable>
+
+        <variable
             name="product"
             type="sumsar.com.walsmart.model.Product"></variable>
     </data>
 
     <RelativeLayout
+        android:clickable="true"
+        android:id="@+id/product_list_item_root"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height_two_lines"
-        android:background="?attr/selectableItemBackground"
         android:orientation="vertical"
+        android:background="@drawable/item_selector"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        app:selected="@{selectedProductId.productId == product.productId}">
 
 
         <ImageView

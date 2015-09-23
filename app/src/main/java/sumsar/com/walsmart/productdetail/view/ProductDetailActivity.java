@@ -1,4 +1,4 @@
-package sumsar.com.walsmart.productdetail.widget;
+package sumsar.com.walsmart.productdetail.view;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -14,7 +14,6 @@ public class Product implements Parcelable {
     private final float   reviewRating;
     private final long    reviewCount;
     private final boolean inStock;
-    private boolean selected = false;
 
     protected Product(Parcel in) {
         productId = in.readString();
@@ -94,12 +93,4 @@ public class Product implements Parcelable {
         dest.writeByte((byte) (inStock ? 1 : 0));
     }
 
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
 }

@@ -10,8 +10,6 @@ public interface ProductListPresenter extends Presenter {
 
     void requestProductList();
 
-    void selectProduct(Product product);
-
     void onDestroy();
 
 }

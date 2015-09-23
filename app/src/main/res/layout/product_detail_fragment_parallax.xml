@@ -137,9 +137,6 @@
                     android:text="@{product.inStock ? @string/in_stock: @string/not_in_stock}"
                     android:textColor="@{product.inStock ? @color/in_stock: @color/not_in_stock}"
                     tools:text="yes"/>
-                <!--android:drawableLeft="@{product.inStock ? @android:drawable/ic_menu_send : @android:drawable/ic_dialog_alert"-->
-
-
 
                 <TextView
                     android:id="@+id/product_detail_long_description"

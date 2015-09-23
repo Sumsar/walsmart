@@ -23,13 +23,13 @@
 
         <fragment
             android:id="@+id/product_list_fragment"
-            class="sumsar.com.walsmart.productlist.widget.ProductListFragment"
+            class="sumsar.com.walsmart.productlist.view.ProductListFragment"
             android:layout_width="400dp"
             android:layout_height="match_parent"/>
 
         <fragment
             android:id="@+id/product_details_fragment"
-            class="sumsar.com.walsmart.productdetail.widget.ProductDetailFragment"
+            class="sumsar.com.walsmart.productdetail.view.ProductDetailFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

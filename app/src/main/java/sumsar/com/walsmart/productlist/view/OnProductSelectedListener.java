@@ -1,4 +1,4 @@
-package sumsar.com.walsmart.productlist.widget;
+package sumsar.com.walsmart.productlist.view;
 
 import android.widget.ImageView;
 

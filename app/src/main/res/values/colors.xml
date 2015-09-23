@@ -8,5 +8,7 @@
     <color name="transparent">#00ffffff</color>
     <color name="in_stock">#a4dea0</color>
     <color name="not_in_stock">#dea0a0</color>
+    <color name="selected_background">#e2dfda</color>
+    <color name="pressed_background">#eceae8</color>
 
 </resources>

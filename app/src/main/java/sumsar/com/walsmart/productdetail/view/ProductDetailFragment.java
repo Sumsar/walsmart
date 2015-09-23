@@ -1,4 +1,4 @@
-package sumsar.com.walsmart.productdetail.widget;
+package sumsar.com.walsmart.productdetail.view;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
