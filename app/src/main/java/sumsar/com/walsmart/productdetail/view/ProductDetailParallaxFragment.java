@@ -13,7 +13,7 @@ public class ProductDetailParallaxFragment extends ProductDetailFragment {
 
     @Override
     @LayoutRes
-    protected int getLayout(Context context) {
+    protected int getLayout() {
         return R.layout.product_detail_fragment_parallax;
     }
 

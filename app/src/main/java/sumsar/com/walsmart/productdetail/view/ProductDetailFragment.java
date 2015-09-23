@@ -33,7 +33,7 @@ public class ProductDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mDataBinding = DataBindingUtil.inflate(inflater, getLayout(getContext()), container, false);
+        mDataBinding = DataBindingUtil.inflate(inflater, getLayout(), container, false);
         return mDataBinding.getRoot();
     }
 
@@ -44,24 +44,27 @@ public class ProductDetailFragment extends Fragment {
     }
 
     @LayoutRes
-    protected int getLayout(Context context) {
+    protected int getLayout() {
         return R.layout.product_detail_fragment;
     }
 
     public void setProduct(Product product) {
+        scrollDescriptionToTop();
 
         if (product == null) {
             MyLog.e(ProductDetailFragment.class.getSimpleName(), "Product is null");
             return;
         }
 
+        mDataBinding.setVariable(BR.product, product);
+        mDataBinding.executePendingBindings();
 
+    }
+
+    private void scrollDescriptionToTop() {
         if (mScrollView != null) {
             mScrollView.fullScroll(ScrollView.FOCUS_UP);
         }
-
-        mDataBinding.setVariable(BR.product, product);
-        mDataBinding.executePendingBindings();
 
     }
 
