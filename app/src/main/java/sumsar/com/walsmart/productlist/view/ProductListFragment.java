@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -117,10 +118,6 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
 
     @Override
-    public void showError(String message) {
-    }
-
-    @Override
     public void showLoading() {
         mSwipeRefreshLayout.setRefreshing(true);
     }
@@ -151,6 +148,11 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
             }
         });
+    }
+
+    @Override
+    public void onFailedToGetProducts() {
+        Snackbar.make(getView(), R.string.error_failed_to_download_product, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

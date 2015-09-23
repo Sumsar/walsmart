@@ -37,7 +37,7 @@ public class ProductListPresenterImpl implements ProductListPresenter {
             @Override
             public void onFailed(Throwable throwable) {
                 mProductListView.hideLoading();
-                mProductListView.showError(throwable.getMessage());
+                mProductListView.onFailedToGetProducts();
             }
         };
 

@@ -12,5 +12,6 @@ public interface ProductListView extends BaseView {
 
     void setProducts(List<Product> products);
 
+    void onFailedToGetProducts();
 
 }

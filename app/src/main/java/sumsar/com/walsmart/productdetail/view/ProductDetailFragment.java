@@ -1,12 +1,13 @@
 package sumsar.com.walsmart.productdetail.view;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class ProductDetailFragment extends Fragment {
 
     private ViewDataBinding mDataBinding;
     /**
-     * Is only present in the tablet layout. Thus it can be null
+     * Is only present in the tablet layout and can be null
      */
     @Nullable
     private ScrollView      mScrollView;
@@ -41,6 +42,24 @@ public class ProductDetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mScrollView = (ScrollView) view.findViewById(R.id.product_detail_scroll_view);
+
+
+        initToolbar(view);
+
+    }
+
+    private void initToolbar(View view) {
+        final Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            final AppCompatActivity activity = (AppCompatActivity) getActivity();
+            activity.setSupportActionBar(toolbar);
+            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @LayoutRes
