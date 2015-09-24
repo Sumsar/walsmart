@@ -128,25 +128,32 @@ public class ProductListFragment extends Fragment implements ProductListView, On
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
+    private boolean isRefreshing() {
+        return mSwipeRefreshLayout.isRefreshing();
+    }
+
 
     private void setScrollListener(final RecyclerView recyclerView, final LinearLayoutManager layoutManager) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int visibleItemCount, totalItemCount, pastVisibleItems;
-            boolean hitEnd;
+            private int visibleItemCount, totalItemCount, pastVisibleItems;
+            private boolean hitEnd;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                visibleItemCount = layoutManager.getChildCount();
-                totalItemCount = layoutManager.getItemCount();
-                pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
-                hitEnd = visibleItemCount + pastVisibleItems >= totalItemCount;
-                if (hitEnd && !mSwipeRefreshLayout.isRefreshing()) {
+                hitEnd = hasHitEnd();
+                if (hitEnd && !isRefreshing()) {
                     MyLog.d(ProductListFragment.TAG, "Hit end");
                     mPresenter.requestProductList();
                 }
 
+            }
+
+            private boolean hasHitEnd() {
+                visibleItemCount = layoutManager.getChildCount();
+                totalItemCount = layoutManager.getItemCount();
+                pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+                return visibleItemCount + pastVisibleItems >= totalItemCount;
             }
         });
     }
