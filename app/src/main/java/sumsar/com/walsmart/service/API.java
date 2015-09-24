@@ -7,6 +7,9 @@ import sumsar.com.walsmart.model.ProductList;
  */
 public interface API {
 
+
+    int PAGE_SIZE = 20;
+
     void getProductList(final int pageNumber, final ApiCallback<ProductList> callback);
 
     void getProductList(final int pageNumber, final int pageSize, final ApiCallback<ProductList> callback);

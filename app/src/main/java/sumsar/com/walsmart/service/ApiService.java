@@ -17,7 +17,6 @@ import sumsar.com.walsmart.model.ProductList;
  */
 public class ApiService implements API {
 
-    private static final int PAGE_SIZE = 20;
 
     private final List<Product> mProductList = new ArrayList<>();
 
