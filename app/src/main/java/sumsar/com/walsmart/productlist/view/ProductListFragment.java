@@ -17,13 +17,13 @@ import android.widget.ImageView;
 import java.util.List;
 
 import sumsar.com.walsmart.R;
-import sumsar.com.walsmart.mock.MockAPI;
 import sumsar.com.walsmart.model.ObservableProductId;
 import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenter;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenterImpl;
 import sumsar.com.walsmart.productlist.presenter.ProductListView;
-import sumsar.com.walsmart.util.MyLog;
+import sumsar.com.walsmart.service.ApiService;
+import sumsar.com.walsmart.util.log.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.
@@ -42,7 +42,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
     private final ProductAdapter mProductAdapter = new ProductAdapter(selectedProductId);
 
-    private final ProductListPresenter mPresenter = new ProductListPresenterImpl(this, MockAPI.getInstance());
+    private final ProductListPresenter mPresenter = new ProductListPresenterImpl(this, ApiService.getInstance());
     private OnProductSelectedListener mOnProductClickListener;
 
 
@@ -100,6 +100,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView = (RecyclerView) view.findViewById(R.id.product_list_recyclerView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.product_list_swipeRefreshLayout);
+        mSwipeRefreshLayout.setEnabled(false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mProductAdapter);

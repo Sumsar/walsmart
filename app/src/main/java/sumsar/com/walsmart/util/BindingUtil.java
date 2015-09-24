@@ -17,7 +17,7 @@ public class BindingUtil {
 
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView imageView, String url) {
-        Glide.with(imageView.getContext()).load(url).crossFade().placeholder(R.drawable.walmart).into(imageView);
+        Glide.with(imageView.getContext()).load(url).crossFade().into(imageView);
     }
 
     @BindingAdapter({"bind:selected"})

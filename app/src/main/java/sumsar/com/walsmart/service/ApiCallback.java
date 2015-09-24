@@ -1,11 +1,9 @@
 package sumsar.com.walsmart.service;
 
-import android.support.annotation.Nullable;
-
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
-import sumsar.com.walsmart.util.MyLog;
+import sumsar.com.walsmart.util.log.MyLog;
 
 /**
  * Created by rasmusgohs on 22/09/15.
@@ -13,7 +11,6 @@ import sumsar.com.walsmart.util.MyLog;
 public abstract class ApiCallback<T> {
     private Call<T> call;
 
-    @Nullable
     void execute(Call<T> call) {
         this.call = call;
         call.enqueue(new Callback<T>() {
