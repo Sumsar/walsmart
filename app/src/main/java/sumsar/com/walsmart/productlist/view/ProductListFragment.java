@@ -32,7 +32,6 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
     private static final String RECYCLER_POSITION       = "RECYCLER_POSITION";
     private static final String SELECTED_PRODUCT_ID_KEY = "SELECTED_PRODUCT_ID_KEY";
-    public static final  String TAG                     = ProductListFragment.class.getSimpleName();
 
     private RecyclerView mRecyclerView;
 
@@ -143,7 +142,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
                 super.onScrolled(recyclerView, dx, dy);
                 hitEnd = hasHitEnd();
                 if (hitEnd && !isRefreshing()) {
-                    MyLog.d(ProductListFragment.TAG, "Hit end");
+                    MyLog.d(ProductListFragment.class.getSimpleName(), "Hit end");
                     mPresenter.requestProductList();
                 }
 
