@@ -10,18 +10,9 @@ import sumsar.com.walsmart.util.log.MyLog;
  */
 public class WalSmartApplication extends Application {
 
-    private static WalSmartApplication instance;
-
-
-    public static WalSmartApplication getInstance() {
-        return instance;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-
         //Bind singletons
         MyLog.init(this);
         ApiService.getInstance().init(this);

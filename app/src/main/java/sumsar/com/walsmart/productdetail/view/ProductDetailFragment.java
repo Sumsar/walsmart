@@ -57,11 +57,6 @@ public class ProductDetailFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
     @LayoutRes
     protected int getLayout() {
         return R.layout.product_detail_fragment;

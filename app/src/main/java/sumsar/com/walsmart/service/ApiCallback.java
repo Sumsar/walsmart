@@ -16,7 +16,6 @@ public abstract class ApiCallback<T> {
         call.enqueue(new Callback<T>() {
             @Override
             public void onResponse(Response<T> response) {
-                MyLog.d(ApiService.class.getSimpleName(), "Response:");
                 MyLog.d(ApiService.class.getSimpleName(), response.raw().request().toString());
                 onSuccess(response.body());
             }

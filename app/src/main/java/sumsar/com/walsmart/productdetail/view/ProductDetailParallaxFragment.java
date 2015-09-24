@@ -1,6 +1,5 @@
 package sumsar.com.walsmart.productdetail.view;
 
-import android.content.Context;
 import android.support.annotation.LayoutRes;
 
 import sumsar.com.walsmart.R;

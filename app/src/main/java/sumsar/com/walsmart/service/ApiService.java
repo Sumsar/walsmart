@@ -2,14 +2,10 @@ package sumsar.com.walsmart.service;
 
 import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import sumsar.com.walsmart.R;
-import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.model.ProductList;
 
 /**
@@ -18,14 +14,12 @@ import sumsar.com.walsmart.model.ProductList;
 public class ApiService implements API {
 
 
-    private final List<Product> mProductList = new ArrayList<>();
-
     private static ApiService     instance;
     private        String         API_KEY;
     private        WalMartService mWalMartService;
 
 
-    public static ApiService getInstance() {
+    public static synchronized ApiService getInstance() {
         if (instance == null) {
             instance = new ApiService();
         }
@@ -52,10 +46,5 @@ public class ApiService implements API {
     public void getProductList(final int pageNumber, final ApiCallback<ProductList> callback) {
         getProductList(pageNumber, PAGE_SIZE, callback);
     }
-
-    private void loadProducts(final sumsar.com.walsmart.service.ApiCallback<ProductList> callback) {
-        getProductList(mProductList.size(), PAGE_SIZE, callback);
-    }
-
 
 }
