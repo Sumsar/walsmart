@@ -16,7 +16,7 @@ import android.widget.ScrollView;
 import sumsar.com.walsmart.BR;
 import sumsar.com.walsmart.R;
 import sumsar.com.walsmart.model.Product;
-import sumsar.com.walsmart.util.MyLog;
+import sumsar.com.walsmart.util.log.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.

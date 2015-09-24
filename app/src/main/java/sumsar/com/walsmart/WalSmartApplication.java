@@ -3,7 +3,7 @@ package sumsar.com.walsmart;
 import android.app.Application;
 
 import sumsar.com.walsmart.service.ApiService;
-import sumsar.com.walsmart.util.MyLog;
+import sumsar.com.walsmart.util.log.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.

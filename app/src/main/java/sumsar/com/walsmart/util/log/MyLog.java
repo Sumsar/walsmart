@@ -1,4 +1,4 @@
-package sumsar.com.walsmart.util;
+package sumsar.com.walsmart.util.log;
 
 import android.content.Context;
 

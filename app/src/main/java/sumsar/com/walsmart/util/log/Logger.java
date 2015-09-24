@@ -1,4 +1,4 @@
-package sumsar.com.walsmart.util;
+package sumsar.com.walsmart.util.log;
 
 /**
  * Created by rasmusgohs on 21/09/15.

@@ -1,6 +1,5 @@
 package sumsar.com.walsmart.productlist.view;
 
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +10,7 @@ import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productdetail.view.ProductDetailActivity;
 import sumsar.com.walsmart.productdetail.view.ProductDetailFragment;
 import sumsar.com.walsmart.util.ExtraHelper;
-import sumsar.com.walsmart.util.MyLog;
+import sumsar.com.walsmart.util.log.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.
