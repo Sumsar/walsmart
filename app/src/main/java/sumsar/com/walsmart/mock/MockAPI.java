@@ -13,6 +13,7 @@ public class MockAPI implements API {
 
 
     private static MockAPI instance;
+    private final Gson mGson = new Gson();
 
 
     private MockAPI() {
@@ -28,13 +29,12 @@ public class MockAPI implements API {
 
     @Override
     public void getProductList(int pageNumber, ApiCallback<ProductList> callback) {
-        final ProductList list = new Gson().fromJson(MockResponse.JSON, ProductList.class);
+        final ProductList list = mGson.fromJson(MockResponse.JSON, ProductList.class);
         callback.onSuccess(list);
     }
 
     @Override
     public void getProductList(int pageNumber, int pageSize, ApiCallback<ProductList> callback) {
-        final ProductList list = new Gson().fromJson(MockResponse.JSON, ProductList.class);
-        callback.onSuccess(list);
+        getProductList(pageNumber, callback);
     }
 }
