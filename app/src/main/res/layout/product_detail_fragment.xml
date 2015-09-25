@@ -33,6 +33,7 @@
                 android:id="@+id/product_detail_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/product_detail_image_height"
+                android:scaleType="centerCrop"
                 android:transitionName='@{product.productImage}'
                 app:imageUrl="@{product.productImage}"
                 tools:src="@drawable/walmart"/>
