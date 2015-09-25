@@ -83,7 +83,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="24dp">
 
-
+                <!--Should be reused as an 'include' but data binding fails-->
                 <TextView
                     android:id="@+id/product_detail_name"
                     style="@style/Base.TextAppearance.AppCompat.Title"
