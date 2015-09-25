@@ -7,6 +7,9 @@ import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import sumsar.com.walsmart.R;
 import sumsar.com.walsmart.model.ProductList;
+import sumsar.com.walsmart.service.cache.Cache;
+import sumsar.com.walsmart.service.cache.InMemoryCache;
+import sumsar.com.walsmart.util.log.MyLog;
 
 /**
  * Created by rasmusgohs on 09/09/15.
@@ -18,6 +21,7 @@ public class ApiService implements API {
     private        String         API_KEY;
     private        WalMartService mWalMartService;
 
+    private Cache mCache = new InMemoryCache();
 
     public static synchronized ApiService getInstance() {
         if (instance == null) {
@@ -38,7 +42,16 @@ public class ApiService implements API {
 
     @Override
     public void getProductList(final int pageNumber, final int pageSize, final ApiCallback<ProductList> callback) {
+
+        final String key = GET_PRODUCT_CACHE_KEY + pageNumber + pageSize;
+        if (mCache.contains(key)) {
+            MyLog.d(ApiService.class.getSimpleName(), "Found in cache: " + key);
+            callback.onSuccess((ProductList) mCache.get(key));
+            return;
+        }
+
         final Call<ProductList> productList = mWalMartService.getProductList(API_KEY, pageNumber, pageSize);
+        callback.setCache(mCache, key);
         callback.execute(productList);
     }
 

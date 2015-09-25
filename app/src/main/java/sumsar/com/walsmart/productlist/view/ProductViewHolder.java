@@ -19,7 +19,6 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
     private final OnProductSelectedListener mOnProductSelectedListener;
     private final ImageView                 mImageView;
     private       Product                   mProduct;
-    private       int                       mIndex;
     private final ViewDataBinding           mViewDataBinding;
 
     public ProductViewHolder(View itemView, OnProductSelectedListener onProductSelectedListener) {
@@ -33,9 +32,8 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
         mOnProductSelectedListener = onProductSelectedListener;
     }
 
-    public void bind(final Product product, final int index, final ObservableProductId selectedProductId) {
+    public void bind(final Product product, final ObservableProductId selectedProductId) {
         mProduct = product;
-        mIndex = index;
         mViewDataBinding.setVariable(BR.product, product);
         mViewDataBinding.setVariable(BR.selectedProductId, selectedProductId);
         mViewDataBinding.executePendingBindings();
@@ -44,7 +42,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
     @Override
     public void onClick(View v) {
         if (mOnProductSelectedListener != null) {
-            mOnProductSelectedListener.onProductSelected(mProduct, mIndex, mImageView);
+            mOnProductSelectedListener.onProductSelected(mProduct, mImageView);
         }
     }
 }

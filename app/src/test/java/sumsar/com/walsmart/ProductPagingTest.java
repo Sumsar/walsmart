@@ -10,7 +10,6 @@ import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenter;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenterImpl;
 import sumsar.com.walsmart.productlist.presenter.ProductListView;
-import sumsar.com.walsmart.service.API;
 
 /**
  * Created by rasmusgohs on 24/09/15.
@@ -23,7 +22,8 @@ public class ProductPagingTest implements ProductListView {
 
     @Test
     public void testPaging() {
-        mPresenter.requestProductList();
+        mPresenter.requestNextProductList();
+        mPresenter.requestNextProductList();
     }
 
     @Override

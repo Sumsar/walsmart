@@ -9,5 +9,5 @@ import sumsar.com.walsmart.model.Product;
  */
 public interface OnProductSelectedListener {
 
-    void onProductSelected(Product product, int index, ImageView productImageView);
+    void onProductSelected(Product product, ImageView productImageView);
 }

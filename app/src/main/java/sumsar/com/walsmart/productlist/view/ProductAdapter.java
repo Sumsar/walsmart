@@ -36,7 +36,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
     @Override
     public void onBindViewHolder(ProductViewHolder productViewHolder, int i) {
-        productViewHolder.bind(mProducts.get(i), i, selectedProductId);
+        productViewHolder.bind(mProducts.get(i), selectedProductId);
     }
 
     @Override
@@ -45,7 +45,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
     }
 
     public void setProducts(List<Product> products) {
-        mProducts.clear();
         mProducts.addAll(products);
     }
 

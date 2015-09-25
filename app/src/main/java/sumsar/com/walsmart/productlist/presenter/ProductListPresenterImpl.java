@@ -1,6 +1,5 @@
 package sumsar.com.walsmart.productlist.presenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import sumsar.com.walsmart.model.Product;
@@ -17,7 +16,7 @@ public class ProductListPresenterImpl implements ProductListPresenter {
     private final ProductListView          mProductListView;
     private final API                      mApiService;
     private       ApiCallback<ProductList> mApiCallback;
-    private final List<Product> mProducts = new ArrayList<>();
+    private       int                      index;
 
     public ProductListPresenterImpl(ProductListView productListView, API apiService) {
         mProductListView = productListView;
@@ -25,13 +24,14 @@ public class ProductListPresenterImpl implements ProductListPresenter {
     }
 
     @Override
-    public void requestProductList() {
+    public void requestNextProductList() {
         mProductListView.showLoading();
         mApiCallback = new ApiCallback<ProductList>() {
             @Override
             public void onSuccess(ProductList data) {
-                mProducts.addAll(data.getProducts());
-                setProducts(mProducts);
+                final List<Product> products = data.getProducts();
+                index += products.size();
+                setProducts(products);
             }
 
             @Override
@@ -41,7 +41,7 @@ public class ProductListPresenterImpl implements ProductListPresenter {
             }
         };
 
-        mApiService.getProductList(mProducts.size(), mApiCallback);
+        mApiService.getProductList(index, mApiCallback);
 
     }
 

@@ -57,7 +57,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
 
-    public static void startActivity(Activity activity, final Product product, final int index, @Nullable final ImageView productImageView) {
+    public static void startActivity(Activity activity, final Product product, @Nullable final ImageView productImageView) {
         if (productImageView == null) {
             startActivity(activity, product);
         } else {

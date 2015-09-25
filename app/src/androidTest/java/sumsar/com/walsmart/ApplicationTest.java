@@ -2,7 +2,7 @@ package sumsar.com.walsmart;
 
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.MediumTest;
+import android.test.suitebuilder.annotation.SmallTest;
 
 import sumsar.com.walsmart.productlist.view.ProductListActivity;
 
@@ -30,7 +30,7 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2<ProductLis
         getActivity();
     }
 
-    @MediumTest
+    @SmallTest
     public void testSelectProduct() throws InterruptedException {
         Thread.sleep(4000);
 

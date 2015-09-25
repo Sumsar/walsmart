@@ -8,7 +8,9 @@ import sumsar.com.walsmart.model.ProductList;
 public interface API {
 
 
-    int PAGE_SIZE = 20;
+    int    PAGE_SIZE             = 20;
+    String GET_PRODUCT_CACHE_KEY = "getProductList";
+
 
     void getProductList(final int pageNumber, final ApiCallback<ProductList> callback);
 

@@ -17,12 +17,12 @@ import android.widget.ImageView;
 import java.util.List;
 
 import sumsar.com.walsmart.R;
+import sumsar.com.walsmart.mock.MockAPI;
 import sumsar.com.walsmart.model.ObservableProductId;
 import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenter;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenterImpl;
 import sumsar.com.walsmart.productlist.presenter.ProductListView;
-import sumsar.com.walsmart.service.ApiService;
 import sumsar.com.walsmart.util.log.MyLog;
 
 /**
@@ -41,7 +41,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
     private final ProductAdapter mProductAdapter = new ProductAdapter(selectedProductId);
 
-    private final ProductListPresenter mPresenter = new ProductListPresenterImpl(this, ApiService.getInstance());
+    private final ProductListPresenter mPresenter = new ProductListPresenterImpl(this, MockAPI.getInstance());
     private OnProductSelectedListener mOnProductClickListener;
 
 
@@ -104,7 +104,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mProductAdapter);
         setScrollListener(mRecyclerView, layoutManager);
-        mPresenter.requestProductList();
+        mPresenter.requestNextProductList();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
                 hitEnd = hasHitEnd();
                 if (hitEnd && !isRefreshing()) {
                     MyLog.d(ProductListFragment.class.getSimpleName(), "Hit end");
-                    mPresenter.requestProductList();
+                    mPresenter.requestNextProductList();
                 }
 
             }
@@ -169,8 +169,8 @@ public class ProductListFragment extends Fragment implements ProductListView, On
     }
 
     @Override
-    public void onProductSelected(Product product, int index, ImageView productImageView) {
+    public void onProductSelected(Product product, ImageView productImageView) {
         selectedProductId.setProductId(product.getProductId());
-        mOnProductClickListener.onProductSelected(product, index, productImageView);
+        mOnProductClickListener.onProductSelected(product, productImageView);
     }
 }

@@ -54,17 +54,17 @@ public class ProductListActivity extends AppCompatActivity implements OnProductS
     }
 
     public void onProductSelected(Product product) {
-        onProductSelected(product, 0, null);
+        onProductSelected(product, null);
     }
 
     @Override
-    public void onProductSelected(Product product, int index, ImageView productImageView) {
+    public void onProductSelected(Product product, ImageView productImageView) {
         mProduct = product;
-        showProductDetails(product, index, productImageView);
+        showProductDetails(product, productImageView);
 
     }
 
-    private void showProductDetails(Product product, int index, ImageView productImageView) {
+    private void showProductDetails(Product product, ImageView productImageView) {
         if (getResources().getBoolean(R.bool.dual_panel)) {
             final ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager().findFragmentById(R.id.product_details_fragment);
             if (fragment != null) {
@@ -73,7 +73,7 @@ public class ProductListActivity extends AppCompatActivity implements OnProductS
                 MyLog.e(ProductListActivity.class.getSimpleName(), "No details fragment available!");
             }
         } else {
-            ProductDetailActivity.startActivity(this, product, index, productImageView);
+            ProductDetailActivity.startActivity(this, product, productImageView);
         }
     }
 }

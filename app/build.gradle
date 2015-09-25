@@ -18,6 +18,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -32,7 +34,6 @@ android {
             resValue "string", "API_KEY", WAlSMART_API_KEY
             resValue "bool", "LOG_ENABLED", "false"
             resValue "string", "BASE_URL", "https://walmartlabs-test.appspot.com/_ah/api/walmart/v1/"
-
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

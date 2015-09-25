@@ -7,7 +7,7 @@ import sumsar.com.walsmart.presenter.Presenter;
  */
 public interface ProductListPresenter extends Presenter {
 
-    void requestProductList();
+    void requestNextProductList();
 
     void onDestroy();
 
