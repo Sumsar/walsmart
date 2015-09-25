@@ -23,6 +23,7 @@ import sumsar.com.walsmart.model.Product;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenter;
 import sumsar.com.walsmart.productlist.presenter.ProductListPresenterImpl;
 import sumsar.com.walsmart.productlist.presenter.ProductListView;
+import sumsar.com.walsmart.service.ApiService;
 import sumsar.com.walsmart.util.log.MyLog;
 
 /**
@@ -41,7 +42,7 @@ public class ProductListFragment extends Fragment implements ProductListView, On
 
     private final ProductAdapter mProductAdapter = new ProductAdapter(selectedProductId);
 
-    private final ProductListPresenter mPresenter = new ProductListPresenterImpl(this, MockAPI.getInstance());
+    private final ProductListPresenter mPresenter = new ProductListPresenterImpl(this, ApiService.getInstance());
     private OnProductSelectedListener mOnProductClickListener;
 
 
