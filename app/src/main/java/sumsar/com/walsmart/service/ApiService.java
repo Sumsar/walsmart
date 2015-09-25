@@ -21,7 +21,7 @@ public class ApiService implements API {
     private        String         API_KEY;
     private        WalMartService mWalMartService;
 
-    private Cache mCache = new InMemoryCache();
+    private final Cache mCache = new InMemoryCache();
 
     public static synchronized ApiService getInstance() {
         if (instance == null) {
